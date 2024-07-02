@@ -1,0 +1,49 @@
+{
+    "name": "delgont/core",
+    "description" : "delgont core functionality",
+    "keywords": [
+        "Laravel who are you"
+    ],
+    "homepage": "https://github.com/delgont/core",
+    "type" : "project",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "Stephen Okello Omoding",
+            "email" : "okellostephenomoding@gmail.com",
+            "role" : "Developer"
+        },
+        {
+            "name" : "Stephen Delgont",
+            "email" : "stephen.delgont@outlook.com",
+            "role" : "Project Manager, Developer"
+        }
+    ],
+    "require": {
+        "php" : "^7.3|^8.0|^8.1",
+        "laravel/helpers": "^1.5.0"
+
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Delgont\\Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Delgont\\Core\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Delgont\\Core\\DelgontCoreServiceProvider"
+            ]
+        }
+    }
+}
