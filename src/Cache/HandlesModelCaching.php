@@ -177,7 +177,7 @@ trait HandlesModelCaching
             $data = $function();
 
             // Cache the fetched data for future use
-            Cache::put($cacheKey, $data, (int)now()->addMinutes($this->cacheExpiry));
+            Cache::put($cacheKey, $data, (int)$this->cacheExpiry);
             return $data;
         }
         return $function();
