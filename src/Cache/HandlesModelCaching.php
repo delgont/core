@@ -138,7 +138,7 @@ trait HandlesModelCaching
 
     protected function writeToCache ( string $key, $value ) : bool
     {
-        Cache::put($key, $value, now()->addMinutes($this->cacheExpiry));
+        Cache::put($key, $value, (int)now()->addMinutes($this->cacheExpiry));
         return true;
     }
 
@@ -159,6 +159,28 @@ trait HandlesModelCaching
     public function storeLengthAwarePaginatorInCache( LengthAwarePaginator $data, $cacheKey) : bool
     {
         return $this->writeToCache($cacheKey, $data);
+    }
+
+
+    /**
+     * Get data from cache
+     */
+    public function cached($cacheKey, $function)
+    {
+        if($this->fromCache){
+            $data = Cache::get($cacheKey);
+            if(!is_null($data)){
+                // Return cached data if found
+                return $data;
+            }
+            // Execute the provided function to fetch the data
+            $data = $function();
+
+            // Cache the fetched data for future use
+            Cache::put($cacheKey, $data, (int)now()->addMinutes($this->cacheExpiry));
+            return $data;
+        }
+        return $function();
     }
 
 

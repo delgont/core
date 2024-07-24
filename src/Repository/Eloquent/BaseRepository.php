@@ -34,8 +34,6 @@ class BaseRepository implements EloquentRepositoryInterface
 
     protected $withCount = [];
 
-
-
     /**
      * BaseRepository constructor.
      *
