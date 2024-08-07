@@ -9,7 +9,7 @@ abstract class ModelCacheKeys
     
     protected function getCacheKeys()
     {
-        return ($this->cacheKeys) ? $this->cacheKeys : (new \ReflectionClass($this))->getConstants();
+        return (new \ReflectionClass($this))->getConstants();
     }
 
     /**
@@ -17,7 +17,7 @@ abstract class ModelCacheKeys
      */
     public function clearCache() : void
     {
-        $keys = $this->cacheRegistry->getCacheKeys();
+        $keys = $this->getCacheKeys();
         if(count($keys) > 0){
             foreach ($keys as $key => $value) {
                 Cache::forget($value);

@@ -1,0 +1,23 @@
+<?php
+
+use {{ repoNamespace }}
+
+use Delgont\Core\Repository\Eloquent\BaseRepository;
+
+use {{ modelNamespace }};
+
+class {{ class }} extends BaseRepository
+{
+    protected $cacheExpiry = '1440';
+    protected $fromCache = false;
+
+    public function __construct({{ model }} $model)
+    {
+        parent::__construct($model);
+    }
+
+    public function model()
+    {
+        return {{ model }}::class;
+    }
+}

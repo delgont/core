@@ -6,7 +6,7 @@ trait ModelHasMeta {
 
     public function getMetaAttribute($value)
     {
-        return json_decode($value, true);
+        return (!is_null($value)) ? json_decode($value, true) : null;
     }
 
     public function setMetaAttribute($value)

@@ -55,3 +55,7 @@ $model = YourModel::create([
 $model->setMeta('key3', 'value3');
 $value = $model->getMeta('key3');
 ```
+
+```php
+php artisan make:repo TestRepository --model=App/Entities/Test
+```
