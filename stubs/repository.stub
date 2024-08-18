@@ -1,10 +1,11 @@
 <?php
 
-use {{ repoNamespace }}
+namespace {{ repositoryNamespace }};
 
 use Delgont\Core\Repository\Eloquent\BaseRepository;
 
 use {{ modelNamespace }};
+use {{ modelCacheKeys }} as CacheKeys;
 
 class {{ class }} extends BaseRepository
 {
@@ -15,9 +16,5 @@ class {{ class }} extends BaseRepository
     {
         parent::__construct($model);
     }
-
-    public function model()
-    {
-        return {{ model }}::class;
-    }
+   
 }

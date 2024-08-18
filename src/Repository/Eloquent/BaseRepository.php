@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Delgont\Core\Cache\HandlesModelCaching;
 
+use Illuminate\Support\Str;
+
 class BaseRepository implements EloquentRepositoryInterface
 {
     use HandlesModelCaching;
@@ -42,7 +44,7 @@ class BaseRepository implements EloquentRepositoryInterface
     public function __construct( Model $model )
     {
         $this->model = $model;
-        $this->cachePrefix = get_class($this->model);
+        $this->cachePrefix = Str::plural(strtolower(class_basename($this->model)));
     }
 
     public function with($with)
@@ -62,24 +64,26 @@ class BaseRepository implements EloquentRepositoryInterface
      /**
      * Get all model data
      * @param mixed $attributes
-     * @param array $attributes
-     * @param array $relations
      * 
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function all( array $attributes = ['*'] ) : Collection
     {
-        if ($this->fromCache) {
-            $cached = Cache::get( $this->getCachePrefix().':all' );
-            if($cached){
-                return $cached;
-            }else{
-                $all = $this->model->with($this->with)->withCount($this->withCount)->get($attributes);
-                ($all) ? $this->storeCollectionInCache( $all, $this->getCachePrefix().':all' ) : '';
-                return $all;
-            }
-        }
-        return $this->model->with($this->with)->withCount($this->withCount)->get($attributes);
+        return $this->cached($this->getCachePrefix().':all', function() use ($attributes){
+            return $this->model->get($attributes);
+        });
+       
+    }
+
+    /**
+     * Get all model data
+     * @param mixed $attributes
+     * 
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function get( array $attributes = ['*'] ) : Collection
+    {
+        return $this->all($attributes);       
     }
 
     /**
@@ -91,20 +95,19 @@ class BaseRepository implements EloquentRepositoryInterface
      * 
      * @return  Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginate( $perPage = 15, $offset = 1, array $attributes = ['*'] ) : LengthAwarePaginator
+    public function paginate($perPage = 15, $page = 1, $attributes = ['*']) : LengthAwarePaginator
     {
-        if ($this->fromCache) {
-            $cached = Cache::get( $this->getCachePrefix().':offset:'.$offset );
-            if ($cached) {
-                return $cached;
-            } else {
-                $collection = $this->model->with($this->with)->withCount($this->withCount)->paginate($perPage);
-                $this->storeLengthAwarePaginatorInCache( $collection, $this->getCachePrefix().':offset:'.$offset );
-                return $collection;
-            }
-            
-        } 
-        return $this->model->with($this->with)->withCount($this->withCount)->paginate( $perPage );
+        // Calculate offset based on page and perPage
+        $offset = ($page - 1) * $perPage;
+
+        // Generate a cache key that includes the page and perPage parameters
+        $cacheKey = $this->getCachePrefix() . ':page:' . $page . ':perPage:' . $perPage;
+
+        // Return cached results or fetch from database
+        return $this->cached($cacheKey, function() use ($page, $perPage, $attributes) {
+            // Adjust the query if you need to apply attributes or other filters
+            return $this->model->paginate($perPage, $attributes, 'page', $page);
+        });
     }
 
 
@@ -139,13 +142,6 @@ class BaseRepository implements EloquentRepositoryInterface
     public function first()
     {
         return $this->model->first();
-    }
-
-
-
-    public function get( array $attributes = ['*'] )
-    {
-        return $this->all($attributes);
     }
 
     public function where($key, $value)
