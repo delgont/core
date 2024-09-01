@@ -20,7 +20,7 @@
   var studentsPerCourseChartLabels = @json(array_keys($studentsPerCourse));
   var studentsPerCourseChartData = @json(array_values($studentsPerCourse));
 </script>
-<script src="{{ mix('js/dashboard.js') }}" defer></script>
+<script src="{{ asset('js/dashboard.js') }}" defer></script>
 @endsection
 
 

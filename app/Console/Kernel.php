@@ -8,8 +8,15 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\ProcessRevenue;
 
 
+/**
+ * Module Schedule Commands
+ */
+use Modules\Accounting\Concerns\AccountingScheduledCommands;
+
+
 class Kernel extends ConsoleKernel
 {
+    use AccountingScheduledCommands;
     /**
      * The Artisan commands provided by your application.
      *
@@ -40,6 +47,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('queue:work --stop-when-empty')->everyMinute()->withoutOverlapping(15*60);
 
         $schedule->command('update:monthly-expense-summary')->weekly();
+
+        $this->runAccountingScheduledCommands($schedule);
 
     }
 

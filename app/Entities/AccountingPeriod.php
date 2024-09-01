@@ -5,12 +5,12 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
-use App\Models\Concerns\ModelHasOptions;
+use Delgont\Core\Concerns\ModelHasMeta;
 
 
 class AccountingPeriod extends Model
 {
-    use ModelHasOptions;
+    use ModelHasMeta;
 
     protected $casts = [
         'is_current' => 'boolean'

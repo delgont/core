@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'term' => \App\Http\Middleware\Term::class,
         'licensed' => \App\Http\Middleware\Licensed::class,
         'auth.applicant' => \Modules\Applicant\Http\Middleware\Applicant::class,
+        'period' => \Modules\Accounting\Http\Middleware\Period::class
     ];
 }

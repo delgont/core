@@ -19,7 +19,7 @@
 
        @if (term())
            @if (period())
-           <a href="{{ route('dashboard') }}">Visit Home</a>
+           <a href="{{ route('home') }}">Visit Home</a>
            @else
            <h3 class="text-capitalize fw-bold">Set the current Accounting Period</h3>
             <p>You can not use schoolviser without setting the current accounting period</p>

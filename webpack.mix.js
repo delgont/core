@@ -17,10 +17,9 @@ const mix = require('laravel-mix');
 //mix.js('resources/js/app-master.js', 'public/js').vue()
     //.sass('resources/sass/app-master.scss', 'public/css');
 
-mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/dashboard.js', 'public/js')
-   .js('resources/js/basic.js', 'public/js')
-   .sass('resources/sass/app-horizontal.scss', 'public/css')
-   .sass('resources/sass/basic.scss', 'public/css')
-   .copy('node_modules/jquery-ui/dist/themes/base/jquery-ui.css', 'public/css')
-   .copy('node_modules/jquery-ui/dist/jquery-ui.min.js', 'public/js');
+    //.copy('node_modules/jquery-ui/dist/themes/base/jquery-ui.css', 'public/css')
+    //.copy('node_modules/jquery-ui/dist/jquery-ui.min.js', 'public/js');
+
+mix.js('resources/js/basic.js', 'public/js')
+   .sass('resources/sass/basic.scss', 'public/css');
+  

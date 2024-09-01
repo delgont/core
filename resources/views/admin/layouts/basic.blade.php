@@ -134,7 +134,20 @@
                 </div>
                 <div class="col-lg-7">
                     <nav class="nav justify-content-end">
-                        <a class="nav-link m-0 p-0" href="#">Link</a>
+                        @yield('module-topbar-links')
+                        
+                        <div class="dropdown ml-5">
+                            <a class="nav-link my-0 py-0" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="fa fa-plus"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="messageDropdown">
+                                <a href="" class="text-muted font-14 dev dropdown-item">Expense Payment</a>
+                                <a href="" class="text-muted font-14 dev dropdown-item">Bill</a>
+                                <a href="" class="text-muted font-14 dev dropdown-item">New Invoice</a>
+                                <a href="" class="text-muted font-14 dev dropdown-item">New Project</a>
+                            </div>
+                        </div>
+                        
                     </nav>
                     
                 </div>
@@ -232,9 +245,22 @@
     </div>
     <!-- end wrapper -->
 
-    <footer>
+    @php
+        $use_custom_footer = false;
+
+    @endphp
+    @if ($use_custom_footer)
         @yield('footer')
+    @else
+    <footer class="py-5 mt-3 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-8"></div>
+            </div>
+        </div>
     </footer>
+    @endif
 
 @include('admin.includes.offcanvas.user')
 

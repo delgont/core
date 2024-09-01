@@ -17,6 +17,11 @@ require('./bootstrap');
       $(this).parent().addClass('active');
   });
 
+  $('.dev').click(function(e) {
+    e.preventDefault();
+    alert('The functionality you are trying to access is still under development ....!')
+});
+
   $('.form-control').on('input', function() {
     if ($(this).val().trim() !== '') {
       $(this).addClass('focused');
@@ -24,6 +29,27 @@ require('./bootstrap');
       $(this).removeClass('focused');
     }
   });
+  
+  
+  
+  let ugx = new Intl.NumberFormat('en-US');
+
+  $("input[data-bs-type='currency']").on({  
+    keyup: function() {
+      let val = $(this).val();
+      let formated = ugx.format(val.replace(/,/g, ''));
+      $(this).val(formated);
+      //console.log(formated);
+  
+    },  
+    blur: function() {   
+      let val = $(this).val();
+      let formated = ugx.format(val.replace(/,/g, ''));
+      //console.log(formated);
+      $(this).val(formated);
+  
+    }  
+  });  
 
   
   // When a parent item with children is clicked
