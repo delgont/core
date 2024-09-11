@@ -1,6 +1,8 @@
 <?php
 use App\Option;
-use App\Repository\OptionRepository;
+
+use App\Repositories\OptionRepository;
+
 use App\Repository\SettingRepository;
 use App\Repository\HostelRepository;
 use App\Repository\TermRepository;
@@ -60,9 +62,8 @@ if(!function_exists('settings')){
 
 //returns a option value
 if(!function_exists('option')){
-    function option($option_key, $default = null, $cache = true){
-        $option =  ($cache) ? app(OptionRepository::class)->fromCache()->ofKey($option_key, $default) : app(OptionRepository::class)->ofKey($option_key, $default);
-        return ($option) ? $option->value : $default;
+    function option($option_key, $group, $default = null){
+        return app(OptionRepository::class)->fromCache()->findOption($option_key, $group)->value ??  $default;
     }
 }
 

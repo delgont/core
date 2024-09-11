@@ -130,23 +130,29 @@
            <div class="container">
             <div class="row py-2">
                 <div class="col-lg-3">
-                  <img src="{{ asset(config('schoolviser.logo', 'images/logo.svg')) }}" alt="logo" class="img-fluid" />
+                  <img src="{{ asset(option('school_logo', 'schoolviser_school_info', 'images/logo.svg')) }}" style="max-height: 40px;" alt="logo" class="img-fluid" />
                 </div>
                 <div class="col-lg-7">
                     <nav class="nav justify-content-end">
-                        @yield('module-topbar-links')
-                        
+                        <a class="nav-link my-0 py-0"  href="{{route('site.settings')}}">
+                            <i class="fa fa-cog"></i> Site Settings
+                        </a>
+
+                        @if (in_array('accounting', config('schoolviser.modules')))
                         <div class="dropdown ml-5">
                             <a class="nav-link my-0 py-0" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="fa fa-plus"></i>
+                              <i class="fa fa-plus"></i> New
                             </a>
                             <div class="dropdown-menu" aria-labelledby="messageDropdown">
-                                <a href="" class="text-muted font-14 dev dropdown-item">Expense Payment</a>
+                                <a href="{{route('accounting.expenses.record.payment')}}" class="text-muted font-14 dropdown-item">Expense Payment</a>
                                 <a href="" class="text-muted font-14 dev dropdown-item">Bill</a>
                                 <a href="" class="text-muted font-14 dev dropdown-item">New Invoice</a>
                                 <a href="" class="text-muted font-14 dev dropdown-item">New Project</a>
                             </div>
                         </div>
+                        @endif
+
+                        @yield('module-topbar-links')
                         
                     </nav>
                     
@@ -260,6 +266,11 @@
             </div>
         </div>
     </footer>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <p>{{ option('school_name', 'schoolviser_school_info', 'Schoolviser Secondary School') }}</p>
+        </div>
+    </div>
     @endif
 
 @include('admin.includes.offcanvas.user')

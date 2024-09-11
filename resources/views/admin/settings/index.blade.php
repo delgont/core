@@ -20,17 +20,13 @@
 
   <div class="col-lg-4">
     
-    <div class="">
-      <h6 class="mb-1 py-0" style="border-bottom: 1px solid #cfcfcf;" >
-      <span style="background-color: #e9e1e1; font-weight: 500;" class="px-3 py-1 font-12">School Settings</span></h6>
-    </div>
 
     <div class="">
       <div class="list-unstyled">
-        <li><a href="" class="text-small link rounded-1">School Info</a></li>
-        <li><a href="{{route('settings.terms')}}" class="text-small link rounded-1">Terms | Semesters</a></li>
-        <li><a href="{{route('settings.clazzs')}}" class="text-small link rounded-1">Classes</a></li>
-        <li><a href="{{route('settings.year.groups')}}" class="text-small link rounded-1">Year Groups</a></li>
+        <li><a href="{{route('site.settings.school.info')}}" class=" link rounded-1">School Info</a></li>
+        <li><a href="{{route('settings.terms')}}" class="link rounded-1">Terms | Semesters</a></li>
+        <li><a href="{{route('settings.clazzs')}}" class="link rounded-1">Classes</a></li>
+        <li><a href="{{route('settings.year.groups')}}" class="link rounded-1">Year Groups</a></li>
       </div>
     </div>
   </div>

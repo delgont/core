@@ -2,69 +2,58 @@
 
 namespace App\Observers;
 
-use Illuminate\Support\Facades\Cache;
-
-use App\Option;
-
+use App\Entities\Option;
+ 
+use App\Cache\CacheKeys\OptionCacheKeys;
 
 class OptionObserver
 {
-
-
-    public function __construct()
-    {
-    }
-
     /**
-     * Handle the option "created" event.
-     *
-     * @param  \App\Option  $option
-     * @return void
-     */  
-    public function created(Option $option)
-    {
-        Cache::put($option->key, $option->toArray(), now()->addMinutes(60));
-    }
-
-    /**
-     * Handle the option "updated" event.
-     *
-     * @param  \App\Option  $option
-     * @return void
+     * Handle the Option "created" event.
      */
-    public function updated(Option $option)
+    public function created(Option $model): void
     {
+        OptionCacheKeys::clearCache();
+        OptionCacheKeys::clearCacheUpToLastPage(15,100, 'options');
     }
 
     /**
-     * Handle the option "deleted" event.
-     *
-     * @param  \App\Option  $option
-     * @return void
+     * Handle the Option "updated" event.
      */
-    public function deleted(Option $option)
+    public function updated(Option $model): void
     {
+        OptionCacheKeys::clearCache();
+        OptionCacheKeys::clearCacheUpToLastPage(15,100, 'options');
 
     }
 
     /**
-     * Handle the option "restored" event.
-     *
-     * @param  \App\Option  $option
-     * @return void
+     * Handle the Option "deleted" event.
      */
-    public function restored(Option $option)
+    public function deleted(Option $model): void
     {
+        OptionCacheKeys::clearCache();
+        OptionCacheKeys::clearCacheUpToLastPage(15,100, 'options');
+
     }
 
     /**
-     * Handle the option "force deleted" event.
-     *
-     * @param  \App\Option  $option
-     * @return void
+     * Handle the Option "restored" event.
      */
-    public function forceDeleted(Option $option)
+    public function restored(Option $model): void
     {
+        OptionCacheKeys::clearCache();
+        OptionCacheKeys::clearCacheUpToLastPage(15,100, 'options');
+
+    }
+
+    /**
+     * Handle the Option "force deleted" event.
+     */
+    public function forceDeleted(Option $model): void
+    {
+        OptionCacheKeys::clearCache();
+        OptionCacheKeys::clearCacheUpToLastPage(15,100, 'options');
 
     }
 }

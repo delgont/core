@@ -30,6 +30,11 @@ Route::group(['middleware' => ['auth','usertype:master|employee','term']], funct
  Route::get('/settings/classes/destroy/{id}', 'ClazzController@destroy')->name('settings.clazzs.destroy');
  Route::get('/settings/classes/edit/{id}', 'ClazzController@edit')->name('settings.clazzs.edit');
 
+
+ Route::get('/site-settings', 'SiteSettingsController@index')->name('site.settings');
+ Route::get('/site-settings/school-info', 'SchoolInfoController@index')->name('site.settings.school.info');
+ Route::post('/site-settings/school-info/update', 'SchoolInfoController@update')->name('site.settings.school.info.update');
+
 });
 
 
