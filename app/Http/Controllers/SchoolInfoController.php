@@ -19,7 +19,6 @@ class SchoolInfoController extends Controller
         return view('admin.settings.school_info', compact('schoolinfo'));
     }
 
-
     /**
      * Update the specified resource in storage.
      */
@@ -38,6 +37,18 @@ class SchoolInfoController extends Controller
             'key' => 'school_name',
             'group' => 'schoolviser_school_info',
             'value' => $request->school_name
+        ]);
+
+        Option::updateOrCreate(['key' => 'address', 'group' => 'schoolviser_school_info'], [
+            'key' => 'address',
+            'group' => 'schoolviser_school_info',
+            'value' => $request->address
+        ]);
+
+        Option::updateOrCreate(['key' => 'phone', 'group' => 'schoolviser_school_info'], [
+            'key' => 'phone',
+            'group' => 'schoolviser_school_info',
+            'value' => $request->phone
         ]);
 
         return back()->withInput();

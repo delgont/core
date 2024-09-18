@@ -9,9 +9,7 @@ use Delgont\Core\Concerns\ModelHasMeta;
 
 class AcademicYear extends Model
 {
-
     use ModelHasMeta;
-
 
     /**
      * Get The Current Academic Year

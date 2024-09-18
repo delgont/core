@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Entities\Clazz;
 
+use App\Repositories\ClazzRespository;
+
+
 class ClazzController extends Controller
 {
     /**
@@ -16,7 +19,8 @@ class ClazzController extends Controller
      */
     public function index()
     {
-        $clazzs = Clazz::all();
+        $clazzs = app(ClazzRespository::class)->fromCache()->getClazzes();
+
         return view('admin.clazzs.index', compact('clazzs'));
     }
 

@@ -5,8 +5,6 @@
 @section('module-page-description', 'Configure your terms')
 
 @section('module-links')
-<a href="{{route('settings')}}">Back To Settings</a>
-<a href="">Set Academic Year</a>
 @endsection
 
 @section('content')
@@ -18,7 +16,7 @@
   <div class="row">
     <div class="col-12">
       <div class="table">
-        <table class="table table-hover table-bordered table-striped bg-primary" id="studentsTables">
+        <table class="table table-hover table-bordered table-striped" id="studentsTables">
           <thead class="">
             <th class="">SN</th>
               <th>Year</th>
@@ -38,8 +36,9 @@
                   <td><small class="text-capitalize bg-warning px-2 py-1 rounded-5 font-12 fst-italic fw-bold">{{ $term->start_date }}</small></td>
                   <td><small class="text-capitalize bg-warning px-2 py-1 rounded-5 font-12 fst-italic fw-bold">{{ $term->end_date }}</small></td>
                   <td><small class="text-capitalize bg-warning px-2 py-1 rounded-5 font-12 fst-italic fw-bold">{{ $term->next_term_start_date }}</small></td>
-                  <td><a href="{{route('settings.terms.show', ['id' => $term->id])}}"><i class="fa fa-edit"></i></a></td>
                   <td>
+                    <a href="{{route('settings.terms.show', ['id' => $term->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('settings.terms.show', ['id' => $term->id])}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                   </td>
     
                 </tr>
@@ -51,6 +50,7 @@
                   <td><small class="text-capitalize">{{ $term->start_date }}</small></td>
                   <td><small class="text-capitalize">{{ $term->end_date }}</small></td>
                   <td><small class="text-capitalize">{{ $term->next_term_start_date }}</small></td>
+                  <td></td>
                 </tr>
                 @endif
                
@@ -76,10 +76,11 @@
     <div class="col-lg-6">
       <label for="" class="font-10 text-muted">Year</label>
       <select name="year" id="" class="form-control">
-        @foreach ($years as $year)
-            <option value="{{ $year->id }}">{{ $year->name }}</option>
-        @endforeach
+        @for ($i = 0; $i < config('schoolviser.look_back_years', 10); $i++)
+        <option value="{{ now()->year + $i }}">{{ now()->year + $i }}</option>
+        @endfor
       </select>
+      
     </div>
     <div class="col-lg-6">
       <label for="" class="font-10 text-muted">Term</label>

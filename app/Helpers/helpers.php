@@ -5,7 +5,7 @@ use App\Repositories\OptionRepository;
 
 use App\Repository\SettingRepository;
 use App\Repository\HostelRepository;
-use App\Repository\TermRepository;
+use App\Repositories\TermRepository;
 
 use App\Models\Accounts\AccountingPeriod;
 

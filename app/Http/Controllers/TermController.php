@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Entities\Term;
 use App\Entities\AcademicYear;
 
+use App\Repositories\TermRepository;
+
+
 class TermController extends Controller
 {
     /**
@@ -17,9 +20,11 @@ class TermController extends Controller
     public function index()
     {
 
-       $terms = Term::orderBy('start_date', 'desc')->paginate();
-       $years = AcademicYear::all();
-       return (request()->expectsJson()) ? response()->json($terms, 200) : view('admin.settings.terms.index', compact('terms', 'years'));
+        $page = request()->query('page') ?? 1;
+
+        $terms = app(TermRepository::class)->fromCache()->paginate(15,$page);
+        $years = AcademicYear::all();
+        return (request()->expectsJson()) ? response()->json($terms, 200) : view('admin.settings.terms.index', compact('terms', 'years'));
     }
 
     /**
@@ -52,13 +57,11 @@ class TermController extends Controller
             'start_date.after_or_equal' => 'There is already a session btn '.request('start_date').' and '.$max_end_date
         ]);
 
-        $year = AcademicYear::whereId($request->year)->firstOrFail();
-
         $term = new Term;
 
-        $term->year = $year->name;
+        $term->year = $request->year;
         $term->term = $request->term;
-        $term->academic_year_id = $year->id;
+        $term->academic_year_id = $year->id ?? null;
         $term->start_date = $request->start_date;
         $term->end_date = $request->end_date;
         $term->next_term_start_date = $request->next_term_start_date;
@@ -104,13 +107,13 @@ class TermController extends Controller
     public function update(Request $request, $id)
     {
 
-        $year = AcademicYear::whereId($request->year)->firstOrFail();
+        //$year = AcademicYear::whereId($request->year)->firstOrFail();
 
         $term = Term::findOrFail($id);
 
-        $term->year = $year->name;
+        $term->year = $request->year;
         $term->term = $request->term;
-        $term->academic_year_id = $year->id;
+        //$term->academic_year_id = $year->id;
         $term->start_date = $request->start_date;
         $term->end_date = $request->end_date;
         $term->next_term_start_date = $request->next_term_start_date;

@@ -21,6 +21,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
 
     <!-- Base URL -->
     <meta name="base-url" content="{{ url('/') }}" />
@@ -146,7 +147,7 @@
                             <div class="dropdown-menu" aria-labelledby="messageDropdown">
                                 <a href="{{route('accounting.expenses.record.payment')}}" class="text-muted font-14 dropdown-item">Expense Payment</a>
                                 <a href="" class="text-muted font-14 dev dropdown-item">Bill</a>
-                                <a href="" class="text-muted font-14 dev dropdown-item">New Invoice</a>
+                                <a href="{{route('accounting.invoices.create')}}" class="text-muted font-14 dropdown-item">New Invoice</a>
                                 <a href="" class="text-muted font-14 dev dropdown-item">New Project</a>
                             </div>
                         </div>
@@ -199,7 +200,6 @@
                                         </ul>
                                     </li>
                                 
-                                    <li><a href="{{ route('settings') }}" class="">Settings</a></li>
                                     <li class="w-100">
                                         <a class="" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <span class="">{{ __('Logout') }}</span>
@@ -258,19 +258,36 @@
     @if ($use_custom_footer)
         @yield('footer')
     @else
-    <footer class="py-5 mt-3 bg-primary text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-8"></div>
+    <footer class="py-5 mt-3 ">
+
+        <section class="top-section bg-primary text-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        
+                    </div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-8"></div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="bottom-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        {{ option('school_name', 'schoolviser_school_info') }}
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4 text-lg-end">
+                        Set School Social Links
+                    </div>
+                </div>
+            </div>
+        </section>
+        
     </footer>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <p>{{ option('school_name', 'schoolviser_school_info', 'Schoolviser Secondary School') }}</p>
-        </div>
-    </div>
+   
     @endif
 
 @include('admin.includes.offcanvas.user')

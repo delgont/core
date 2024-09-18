@@ -3,6 +3,7 @@
 return [
 
   'school_name' => 'Delgont Primary School',
+  
   'logo' => 'images/logo.svg',
 
   'version' => env('APP_VERSION', 'Dev'),

@@ -16,35 +16,67 @@
     
 
 @section('content')
-<div class="row mt-3">
+<div class="row row-1">
+
     <div class="col-lg-8">
         <div class="card">
-            <form class="card-body row py-4" action="{{route('site.settings.school.info.update')}}" method="POST" enctype="multipart/form-data">
+            <form class="card-body row py-5" action="{{route('site.settings.school.info.update')}}" method="POST" enctype="multipart/form-data">
                 @csrf
         
-                <div class="col-lg-3">
-                    <p class="m-lg-0">School Logo</p>
-                </div>
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-6"><input type="file" name="school_logo" id=""></div>
-                    <div class="col-lg-6"><img src="{{ asset($schoolinfo->school_logo) }}" alt="School Logo" class="img" /></div>
-                    </div>
+                <div class="col-lg-6">
+                    <label for="logo">School Logo</label>
+                    <input type="file" name="school_logo" id="">
                 </div>
 
+                <div class="col-lg-6">
+                    <img src="{{ asset($schoolinfo->school_logo) }}" alt="School Logo" class="img-fluid" />
+                </div>
+
+                <div class="col-lg-12"><hr></div>
+                
                 <div class="col-lg-3 mt-lg-3">
-                    <p class="m-lg-0">School Logo</p>
+                    <p class="m-lg-0">School Name</p>
                 </div>
                 <div class="col-lg-9 mt-lg-3">
                     <input type="text" name="school_name" value="{{ old('school_name') ?? $schoolinfo->school_name }}" class="form-control" />
                 </div>
 
-                <div class="col-lg-5 pt-5">
-                    <button type="submit" class="btn btn-primary btn-md w-100">Update</button>
+                <div class="col-lg-12">
+                    <hr>
+                    <h5>Contact Information</h5>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" placeholder="Your School Address" value="{{ old('address') ?? $schoolinfo->address }}" class="form-control" />
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="address">Phone</label>
+                    <input type="text" name="phone" placeholder="Phone" value="{{ old('phone') ?? $schoolinfo->phone }}" class="form-control" />
+                </div>
+
+
+                <div class="col-lg-12 pt-5">
+                    <button type="submit" class="btn btn-primary btn-md w-100 rounded-4">Update</button>
                 </div>
                 
             </form>
         </div>
     </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-0 p-0">General</h4>
+                <div class="list-unstyled">
+                    <li><a href="{{route('settings.terms')}}" class="link rounded-1">Terms | Semesters</a></li>
+                    <li><a href="{{route('settings.clazzs')}}" class="link rounded-1">Classes</a></li>
+                    <li><a href="{{route('settings.year.groups')}}" class="link rounded-1">Year Groups</a></li>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection

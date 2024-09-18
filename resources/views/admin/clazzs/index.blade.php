@@ -2,10 +2,10 @@
 
 @section('title', 'Home')
 
-@section('pageheader', 'Class')
+@section('module-page-heading', 'Class')
 @section('pageheaderDescription', 'Manage your classes')
 
-@section('pageheader-controls')
+@section('module-links')
 
 @endsection
 
@@ -15,7 +15,7 @@
     
 @section('content')
 
-<div class="row">
+<div class="row row-1">
   <div class="col-lg-12">
     @include('admin.includes.alerts.created')
     @include('admin.includes.alerts.deleted')

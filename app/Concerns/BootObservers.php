@@ -13,6 +13,7 @@ use App\Observers\UserObserver;
 use App\Observers\PermissionObserver;
 use App\Observers\RequirementObserver;
 use App\Observers\TermObserver;
+use App\Observers\ClazzObserver;
 
 /**
  * Models
@@ -27,6 +28,7 @@ use Delgont\Auth\Models\Permission;
 use App\Models\Requirement\Requirement;
 
 use App\Entities\Term;
+use App\Entities\Clazz;
 
 
 trait BootObservers
@@ -44,5 +46,6 @@ trait BootObservers
         Permission::observe(PermissionObserver::class);
 
         Term::observe(TermObserver::class);
+        Clazz::observe(ClazzObserver::class);
     }
 }

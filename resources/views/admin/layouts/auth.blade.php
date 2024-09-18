@@ -9,8 +9,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
 
-    <!-- Material Design Icons -->
-    <link rel="stylesheet" href="{{ asset('mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome-4.3.0/css/font-awesome.min.css') }}">
     
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />

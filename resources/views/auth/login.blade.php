@@ -4,14 +4,13 @@
     
 @section('content')
 <div class="authentication-inner row">
-  <div class="col-lg-4 offset-lg-4 py-3">
+  <div class="col-lg-4 offset-lg-4 py-1">
     <div class="card shadow-md">
       <div class="card-body">
         <!-- Logo -->
         <div class="text-start pb-4">
           <a href="https://schoolviser.com" class="app-brand-link gap-2">
-            <img src="{{ asset('images/logo-white.svg') }}" alt="">
-              <span>👋</span>
+            <img src="{{ asset(option('school_logo','schoolviser_school_info', 'images/logo-white.svg')) }}" class="img-fluid" alt="">
           </a>
         </div>
        
@@ -35,7 +34,7 @@
             </div>
             <div class="input-group input-group-merge">
               <input type="password" name="password" id="password"  placeholder="Password" ="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror"/>
-              <span class="input-group-text cursor-pointer" id="togglePassword"><i class="mdi mdi-eye-off"></i></span>
+              <span class="input-group-text cursor-pointer" id="togglePassword"><i class="fa fa-eye"></i></span>
               @error('password')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -56,6 +55,11 @@
         
       </div>
     </div>
+  </div>
+  <div class="col-lg-12 text-center py-2">
+    <a href=""><i class="fa fa-facebook"></i></a>
+    <a href=""><i class="fa fa-twitter"></i></a>
+    <a href=""><i class="fa fa-youtube"></i></a>
   </div>
 </div>
 @endsection

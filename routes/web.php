@@ -14,31 +14,31 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth','usertype:master|employee','term']], function(){
+Route::group(['middleware' => ['auth','term']], function(){
 
  Route::get('/', 'DashboardController')->name('home');
 
- Route::get('/settings', 'Setting\SettingController')->name('settings');
- Route::get('/settings/terms', 'TermController@index')->name('settings.terms');
- Route::post('/settings/terms/store', 'TermController@store')->name('settings.terms.store');
- Route::get('/settings/terms/{id}', 'TermController@show')->name('settings.terms.show');
- Route::post('/settings/terms/update/{id}', 'TermController@update')->name('settings.terms.update');
+ Route::get('/settings', 'Setting\SettingController')->middleware(['usertype:master|employee'])->name('settings');
+ Route::get('/site-settings/terms', 'TermController@index')->middleware(['usertype:master'])->name('settings.terms');
+ Route::post('/site-settings/terms/store', 'TermController@store')->middleware(['usertype:master'])->name('settings.terms.store');
+ Route::get('/site-settings/terms/{id}', 'TermController@show')->middleware(['usertype:master'])->name('settings.terms.show');
+ Route::post('/site-settings/terms/update/{id}', 'TermController@update')->middleware(['usertype:master'])->name('settings.terms.update');
 
- Route::get('/settings/classes', 'ClazzController@index')->name('settings.clazzs');
- Route::post('/settings/classes/store', 'ClazzController@store')->name('settings.clazzs.store');
- Route::post('/settings/classes/update/{id}', 'ClazzController@update')->name('settings.clazzs.update');
- Route::get('/settings/classes/destroy/{id}', 'ClazzController@destroy')->name('settings.clazzs.destroy');
- Route::get('/settings/classes/edit/{id}', 'ClazzController@edit')->name('settings.clazzs.edit');
+ Route::get('/site-settings/classes', 'ClazzController@index')->middleware(['usertype:master'])->name('settings.clazzs');
+ Route::post('/site-settings/classes/store', 'ClazzController@store')->middleware(['usertype:master'])->name('settings.clazzs.store');
+ Route::post('/site-settings/classes/update/{id}', 'ClazzController@update')->middleware(['usertype:master'])->name('settings.clazzs.update');
+ Route::get('/site-settings/classes/destroy/{id}', 'ClazzController@destroy')->middleware(['usertype:master'])->name('settings.clazzs.destroy');
+ Route::get('/site-settings/classes/edit/{id}', 'ClazzController@edit')->middleware(['usertype:master'])->name('settings.clazzs.edit');
 
 
- Route::get('/site-settings', 'SiteSettingsController@index')->name('site.settings');
- Route::get('/site-settings/school-info', 'SchoolInfoController@index')->name('site.settings.school.info');
- Route::post('/site-settings/school-info/update', 'SchoolInfoController@update')->name('site.settings.school.info.update');
+ Route::get('/site-settings', 'SiteSettingsController@index')->middleware(['usertype:master'])->name('site.settings');
+ Route::get('/site-settings/school-info', 'SchoolInfoController@index')->middleware(['usertype:master'])->name('site.settings.school.info');
+ Route::post('/site-settings/school-info/update', 'SchoolInfoController@update')->middleware(['usertype:master'])->name('site.settings.school.info.update');
 
 });
 
 
-Route::group(['middleware' => ['auth','usertype:master|employee']], function(){
+Route::group(['middleware' => ['auth','usertype:master']], function(){
  Route::get('/init', 'Init\InitController')->name('init');
  Route::get('/init/set/periods', 'Init\SetTermController@index')->name('init.set.term');
  Route::post('/init/set/term', 'Init\SetTermController@store')->name('init.set.term.store');

@@ -55,7 +55,7 @@
         <div class="col-lg-6">
           <label for="" class="font-10 text-muted">Year</label>
           <select name="year" id="" class="form-control">
-            @for ($i = 0; $i < option('look_back_years', 5); $i++)
+            @for ($i = 0; $i < config('schoolviser.look_back_years', 10); $i++)
             <option value="{{ now()->year + $i }}">{{ now()->year + $i }}</option>
             @endfor
           </select>

@@ -190,9 +190,9 @@ return [
 
         Modules\Student\Providers\StudentServiceProvider::class, // Depends On Course
         Modules\Accounting\Providers\AccountingServiceProvider::class,
-        //Modules\Fee\Providers\FeeServiceProvider::class, // Depends Student, Course, User, Accounting
+        //Modules\Fee\Providers\FeeServiceProvider::class, // Depends On Student, Course, User, Accounting
         
-        //Modules\Admission\Providers\AdmissionServiceProvider::class, //--
+        Modules\Admission\Providers\AdmissionServiceProvider::class, // Depends On Course
         //Modules\Applicant\Providers\ApplicantServiceProvider::class, //--
 
         Modules\Vendor\Providers\VendorServiceProvider::class,
