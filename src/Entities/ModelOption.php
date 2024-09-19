@@ -1,6 +1,6 @@
 <?php
 
-namespace Delgont\Core\Models\Option;
+namespace Delgont\Core\Entities\Option;
 
 use Illuminate\Database\Eloquent\Model;
 
