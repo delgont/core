@@ -29,7 +29,10 @@
     "autoload": {
         "psr-4": {
             "Delgont\\Core\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

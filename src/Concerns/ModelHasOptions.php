@@ -1,7 +1,7 @@
 <?php
-namespace Delgont\Cms\Concerns;
+namespace Delgont\Core\Concerns;
 
-use Delgont\Core\Models\ModelOption;
+use Delgont\Core\Entities\ModelOption;
 
 trait ModelHasOptions {
 
