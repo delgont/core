@@ -15,19 +15,22 @@ abstract class ModelCacheKeys
     /**
      * Clear All Model Cached Data
      */
-    public static function clearCache() : void
+    public static function clearCache($id = null) : void
     {
         // If called statically, create an instance and use that to clear cache
         $instance = new static();
-        $instance->clearAllCache();
+        $instance->clearAllCache($id);
     }
 
-    public function clearAllCache() : void
+    public function clearAllCache($id = null) : void
     {
         $keys = $this->getCacheKeys();
         if (count($keys) > 0) {
             foreach ($keys as $value) {
                 Cache::forget($value);
+                if($id){
+                    Cache::forget($value.':'.$id);
+                }
             }
         }
     }

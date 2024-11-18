@@ -16,10 +16,12 @@ class CreateOptionTables extends Migration
         if (!Schema::hasTable('options')) {
             # code...
             Schema::create('options', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('key')->unique();
+                $table->id('id');
+                $table->string('key');
                 $table->text('value')->nullable();
+                $table->string('group');
                 $table->timestamps();
+                $table->unique(['key','group'], 'unique_settings');
             });
         }
 
