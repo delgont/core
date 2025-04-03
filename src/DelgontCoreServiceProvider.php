@@ -7,6 +7,10 @@ use Illuminate\Routing\Router;
 
 use Delgont\Core\Console\Commands\MakeRepository;
 use Delgont\Core\Console\Commands\MakeModuleRepository;
+use Delgont\Core\Console\Commands\MakeVueComponent;
+use Delgont\Core\Console\Commands\ModuleMakeVueComponent;
+
+
 
 
 use Delgont\Core\Observers\OptionObserver;
@@ -23,7 +27,7 @@ class DelgontCoreServiceProvider extends ServiceProvider
     public function register()
     {
 
-       
+
     }
 
     /**
@@ -36,15 +40,17 @@ class DelgontCoreServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeRepository::class,
-                MakeModuleRepository::class
+                MakeModuleRepository::class,
+                MakeVueComponent::class,
+                ModuleMakeVueComponent::class
             ]);
         }
-        
+
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         Option::observe(OptionObserver::class);
 
     }
 
-  
+
 }
