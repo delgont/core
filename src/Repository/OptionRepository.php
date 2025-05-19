@@ -10,11 +10,18 @@ use Delgont\Core\Cache\OptionCacheKeys as CacheKeys;
 class OptionRepository extends BaseRepository
 {
     protected $cacheExpiry = '1440';
-    protected $fromCache = false;
+    protected $fromCache = true;
 
     public function __construct(Option $model)
     {
         parent::__construct($model);
+    }
+
+    public function  getOptions($group)
+    {
+        return $this->cached($group.':'.'options', function() use ($group){
+            return $this->model->whereGroup($group)->get();
+        });
     }
 
     public function findOption($option_key, $group)
@@ -23,5 +30,5 @@ class OptionRepository extends BaseRepository
             return $this->model->where('key', $option_key)->whereGroup($group)->first();
         });
     }
-   
+
 }

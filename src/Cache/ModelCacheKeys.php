@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 
 abstract class ModelCacheKeys
 {
-    
+
     protected function getCacheKeys()
     {
         return (new \ReflectionClass($this))->getConstants();
@@ -25,6 +25,7 @@ abstract class ModelCacheKeys
     public function clearAllCache($id = null) : void
     {
         $keys = $this->getCacheKeys();
+        
         if (count($keys) > 0) {
             foreach ($keys as $value) {
                 Cache::forget($value);
@@ -50,8 +51,8 @@ abstract class ModelCacheKeys
     /**
      * Clear paginated cache entries up to the specified last page.
      *
-     * This method creates a new instance of the class and calls the 
-     * `clearPaginatedCache` method to remove cache entries for paginated 
+     * This method creates a new instance of the class and calls the
+     * `clearPaginatedCache` method to remove cache entries for paginated
      * data, from the first page up to the specified last page.
      *
      * @param int $perPage The number of items per page for the pagination.
@@ -63,7 +64,7 @@ abstract class ModelCacheKeys
     {
         $instance = new static();
         $instance->clearPaginatedCache($perPage, $lastPage, $cachePrefix);
-       
+
     }
 
     /**

@@ -59,3 +59,33 @@ $value = $model->getMeta('key3');
 ```php
 php artisan make:repo TestRepository --model=App/Entities/Test
 ```
+
+
+# ⚙️ System Settings Manager - Using the `Option` Model
+
+This document explains how to manage system settings using the `Option` model in your Laravel app.
+
+---
+
+## 🧠 What This Does
+
+The `Option` model allows you to:
+
+- Save and retrieve **individual** settings.
+- Save and retrieve **groups** of settings (e.g., `accounting_settings`, `email_settings`).
+- Manage system configuration in a **centralized and dynamic** way.
+
+---
+
+## 📥 Setting a Single Option
+
+Use the static `setOption()` method to store or update a single key-value pair under a specific group.
+
+```php
+use Delgont\Core\Entities\Option;
+
+// Set the accounting method
+Option::setOption('accounting_method', 'cash', 'accounting_settings');
+
+// Set site email
+Option::setOption('support_email', 'admin@example.com', 'email_settings');
