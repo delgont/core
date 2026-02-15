@@ -75,12 +75,17 @@ abstract class ModelCacheKeys
      * @param string $cachePrefix The prefix used for identifying the cache keys related to pagination.
      * @return void
      */
-    public function clearPaginatedCache($perPage, $lastPage, $cachePrefix)
+    public function clearPaginatedCache(int $perPage, int $lastPage, $cachePrefix)
     {
         for ($page = 1; $page <= $lastPage; $page++) {
-            $cacheKey = $cachePrefix.':page:' . $page . ':perPage:' . $perPage;
+            $cacheKey = $cachePrefix.self::paginatedCacheSuffix($perPage, $page);
             Cache::forget($cacheKey);
         }
+    }
+
+    public  static function paginatedCacheSuffix(int $perPage, int $page) : string 
+    {
+        return 'perPage:' . $perPage . ':page:' . $page;
     }
 
 }

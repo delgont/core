@@ -19,7 +19,7 @@ trait HandlesModelCaching
      * How long data should stay in cache
      * @var int
      */
-    protected $cacheExpiry = '1440';
+    protected $cacheExpiry = 1440;
 
     /**
      * whether to rember the data or not
@@ -136,9 +136,16 @@ trait HandlesModelCaching
         return $this->writeToCache( $key, $value );
     }
 
-    protected function writeToCache ( string $key, $value ) : bool
+    /**
+     * Write a value to the cache with a time-to-live (TTL) expressed in minutes.
+     *
+     * @param string $key   The unique cache key under which the value is stored.
+     * @param mixed  $value The data to be cached (model, collection, paginator, etc.).
+     * @return bool Always returns true after writing to cache.
+     */
+    protected function writeToCache(string $key, $value) : bool
     {
-        Cache::put($key, $value, (int)now()->addMinutes($this->cacheExpiry));
+        Cache::put($key, $value, now()->addMinutes((int) $this->cacheExpiry));
         return true;
     }
 
@@ -163,26 +170,57 @@ trait HandlesModelCaching
 
 
     /**
-     * Get data from cache
+     * Retrieve and cache data for a defined expiry period.
+     *
+     * @param string   $cacheKey  Unique cache key identifier
+     * @param callable $function  Callback to fetch fresh data if cache is empty
+     *
+     * @return mixed Cached or freshly retrieved data
      */
     public function cached($cacheKey, $function)
     {
-        if($this->fromCache){
+        if ($this->fromCache) {
             $data = Cache::get($cacheKey);
-            if(!is_null($data)){
-                // Return cached data if found
+            if (!is_null($data)) {
                 return $data;
             }
-            // Execute the provided function to fetch the data
+
             $data = $function();
 
-            // Cache the fetched data for future use
-            Cache::put($cacheKey, $data, (int)$this->cacheExpiry);
+            // Use Carbon for minutes-based expiry (consistent with writeToCache)
+            Cache::put($cacheKey, $data, now()->addMinutes((int) $this->cacheExpiry));
+
             return $data;
         }
+
         return $function();
     }
 
+    /**
+     * Retrieve and cache data indefinitely.
+     *
+     * This method behaves like `cached()`, but stores the result permanently
+     * until explicitly removed from the cache.
+     *
+     * @param string   $cacheKey  Unique cache key identifier
+     * @param callable $function  Callback to fetch fresh data if cache is empty
+     *
+     * @return mixed Cached or freshly retrieved data
+     */
+    public function cachedForever($cacheKey, $function)
+    {
+        $data = Cache::get($cacheKey);
+        if (!is_null($data)) {
+            return $data;
+        }
+
+        $data = $function();
+
+        // Store permanently until manually cleared
+        Cache::forever($cacheKey, $data);
+
+        return $data;
+    }
 
 
 
