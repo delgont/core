@@ -2,6 +2,8 @@
 
 namespace {{ repositoryNamespace }};
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 use Delgont\Core\Repository\Eloquent\BaseRepository;
 
 use {{ modelNamespace }};

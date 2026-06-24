@@ -78,14 +78,31 @@ abstract class ModelCacheKeys
     public function clearPaginatedCache(int $perPage, int $lastPage, $cachePrefix)
     {
         for ($page = 1; $page <= $lastPage; $page++) {
-            $cacheKey = $cachePrefix.self::paginatedCacheSuffix($perPage, $page);
+            $cacheKey = $cachePrefix.self::appendPaginationCacheSuffix($perPage, $page);
             Cache::forget($cacheKey);
         }
     }
 
     public  static function paginatedCacheSuffix(int $perPage, int $page) : string 
     {
+        return 'perpage:' . $perPage . ':page:' . $page;
+    }
+
+    public  static function appendPaginationCacheSuffix(int $perPage, int $page) : string 
+    {
         return 'perPage:' . $perPage . ':page:' . $page;
+    }
+
+    public static function appendCacheSuffix(bool $appendSymbol, ...$parts)
+    {
+        $filtered = array_filter($parts, fn($p) => $p !== null && $p !== '');
+
+        $key =implode(':', $filtered);
+
+        if($appendSymbol){
+            $key .= ':';
+        }
+        return $key;
     }
 
 }
