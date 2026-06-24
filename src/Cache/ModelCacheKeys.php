@@ -90,7 +90,7 @@ abstract class ModelCacheKeys
 
     public  static function appendPaginationCacheSuffix(int $perPage, int $page) : string 
     {
-        return 'perPage:' . $perPage . ':page:' . $page;
+        return 'perpage:' . $perPage . ':page:' . $page;
     }
 
     public static function appendCacheSuffix(bool $appendSymbol, ...$parts)
