@@ -1,0 +1,22 @@
+<?php
+namespace {{ serviceNamespace }};
+
+use Delgont\Core\Services\ModelService;
+
+use {{ modelNamespace }};
+use {{ modelCacheKeys }} as CacheKeys;
+
+class {{ class }} extends ModelService
+{
+    protected $cacheExpiry = '1440'; // Example: cache expiry in minutes
+    protected $fromCache = false;    // Example: toggle to read from cache
+
+    public function __construct({{ model }} $model)
+    {
+        parent::__construct($model);
+    }
+
+
+    
+    
+}
